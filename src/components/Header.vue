@@ -4,6 +4,7 @@
 			<h1>Knowledge base doesn't have to be boring</h1>
 			<h3>Everything you need to manage your messaging</h3>
 		</div>
+		<!-- Category Search Component -->
 	</div>
 </template>
 
