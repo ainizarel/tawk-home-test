@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import KBHomeView from '../pages/KB_HomeView.vue';
 import KBCategoryArticlesView from '../pages/KB_CategoryArticlesView.vue';
+import KBSearchResultsView from '../pages/KB_SearchResultsView.vue';
 
 Vue.use(Router);
 
@@ -17,6 +18,13 @@ const routes = [
     component: KBCategoryArticlesView, // The component that will handle category articles
     props: true, // Pass route params as props
   },
+  {
+    path: '/search/:query', // Dynamic route for search results
+    name: 'SearchResults',
+    component: KBSearchResultsView, // The component for displaying search results
+    props: true, // Pass route params as props
+  },
+  
   // other routes...
 ];
 

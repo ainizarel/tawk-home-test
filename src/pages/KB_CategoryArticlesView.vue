@@ -6,7 +6,15 @@
             <tawk-header></tawk-header>
 
             <!-- Category Search -->
-            <category-search ></category-search>
+              <div>
+                <input
+                type="text"
+                v-model="query"
+                @keypress.enter="handleSearch"
+                placeholder="Search for articles..."
+                />
+                <button @click="handleSearch">Search</button>
+            </div>
         </div>
 
         <!-- Main Content Layout -->
@@ -136,7 +144,8 @@ export default {
             categoryTitle: '',
             articles: [],
             authorName: '', // Add this line to define authorName
-            selectedArticle: {} // Ensure selectedArticle is defined
+            selectedArticle: {}, // Ensure selectedArticle is defined
+            query: ''
              
         };
     },
@@ -257,6 +266,11 @@ export default {
       this.isModalOpen = false;
       this.selectedArticle = null;
       this.authorName = ''; // Reset author name on modal close
+    },
+        handleSearch() {
+      if (this.query.trim()) {
+        this.$router.push(`/search/${encodeURIComponent(this.query.trim())}`);
+      }
     },
     },
     mounted() {

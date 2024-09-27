@@ -1,17 +1,23 @@
 <template>
   <!-- Search Input Field with Icon Button -->
   <div class="search-container">
+    <label for="search-input" class="sr-only">Search for answers</label>
     <input 
+      id="search-input"
       type="text" 
       v-model="searchQuery" 
-      placeholder="Search for answers..."
-      class="search-input"
+      @keydown.enter.prevent="performSearch" 
+      placeholder="Search for answers..." 
+      class="search-input" 
+      aria-label="Search for answers"
     />
-    <button @click="emitSearchQuery" class="search-button">
-      <!-- You can use a search icon from Font Awesome or Material Icons -->
-      <i class="fa fa-search"></i> <!-- Example using Font Awesome -->
-      <!-- Or use Material Icons -->
-      <!-- <span class="material-icons">search</span> -->
+    <button 
+      @click="performSearch" 
+      class="search-button" 
+      :disabled="!searchQuery.trim()"
+      aria-label="Search"
+    >
+      <i class="fa fa-search"></i>
     </button>
   </div>
 </template>
@@ -24,10 +30,11 @@ export default {
     };
   },
   methods: {
-    emitSearchQuery() {
-      // Emit the search query to parent if needed
-      this.$emit('search-input', this.searchQuery);
-    }
+    performSearch() {
+      if (this.searchQuery.trim()) {
+        this.$emit('search', this.searchQuery.trim());
+      }
+    },
   },
   watch: {
     // Watch the searchQuery and emit changes
@@ -68,6 +75,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* Disable button style */
+  &:disabled {
+    background-color: #ccc; /* Grey background when disabled */
+    cursor: not-allowed; /* Change cursor to indicate disabled */
+  }
 }
 
 .search-button i {
